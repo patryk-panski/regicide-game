@@ -1,3 +1,4 @@
+from typing import Dict, List
 import unittest
 
 from regicide_game.card import CardName, Suit, create_castle_deck, create_tavern_deck
@@ -44,8 +45,7 @@ class TestCreateTavernDeck(unittest.TestCase):
             if e not in (CardName.JACK, CardName.QUEEN, CardName.KING, CardName.JESTER)
         ]
 
-        # dictionary holding a CardName to list of suits mapping
-        unique_cards = {}
+        unique_cards: Dict[CardName, List[Suit]] = {}
 
         for name in card_names:
             unique_cards[name] = []
@@ -61,6 +61,13 @@ class TestCreateTavernDeck(unittest.TestCase):
         # validate each card in the dictionary is assigned a list of length 4
         for card in unique_cards:
             self.assertEqual(len(unique_cards[card]), 4)
+        
+        # TODO: I can pass this test by creating a deck with only one suit, but four copies of each.
+        # How could you check that the four cards are the 4 cards you wanted?
+
+        # TODO: What about checking it has the right number of jesters?
+
+        # TODO: What about checking it is a shuffled deck?
 
 
 if __name__ == "__main__":
