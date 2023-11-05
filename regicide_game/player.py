@@ -50,7 +50,7 @@ class Player:
             return False
         # discard all cards (the game is not over yet)
         elif player_health == damage:
-            discard_pile.append(self.hand)
+            discard_pile.extends(self.hand)
             self.hand = []
             return True
         # pick cards to discard
@@ -58,5 +58,5 @@ class Player:
             while damage > 0:
                 card_to_discard = self.hand.pop(0)
                 damage -= card_to_discard.power
-                discard_pile.extends(card_to_discard)
+                discard_pile.append(card_to_discard)
             return True
