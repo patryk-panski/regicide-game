@@ -61,13 +61,47 @@ class TestCreateTavernDeck(unittest.TestCase):
         # validate each card in the dictionary is assigned a list of length 4
         for card in unique_cards:
             self.assertEqual(len(unique_cards[card]), 4)
-        
+
         # TODO: I can pass this test by creating a deck with only one suit, but four copies of each.
         # How could you check that the four cards are the 4 cards you wanted?
+        # PS: I think this is already done by the check "card.suit not in unique_cards[card.name]"?
 
-        # TODO: What about checking it has the right number of jesters?
+    # TODO: What about checking it has the right number of jesters?
+    def test_there_is_correct_num_of_jesters(self):
+        tavern_deck_1p = create_tavern_deck(1)
+        tavern_deck_2p = create_tavern_deck(2)
+        tavern_deck_3p = create_tavern_deck(3)
+        tavern_deck_4p = create_tavern_deck(4)
 
-        # TODO: What about checking it is a shuffled deck?
+        # 1 player check
+        num_of_jesters = 0
+        for card in tavern_deck_1p:
+            if card.name == CardName.JESTER:
+                num_of_jesters += 1
+        self.assertEqual(num_of_jesters, 0)
+
+        # 2 player check
+        num_of_jesters = 0
+        for card in tavern_deck_2p:
+            if card.name == CardName.JESTER:
+                num_of_jesters += 1
+        self.assertEqual(num_of_jesters, 0)
+
+        # 3 player check
+        num_of_jesters = 0
+        for card in tavern_deck_3p:
+            if card.name == CardName.JESTER:
+                num_of_jesters += 1
+        self.assertEqual(num_of_jesters, 1)
+
+        # 4 player check
+        num_of_jesters = 0
+        for card in tavern_deck_4p:
+            if card.name == CardName.JESTER:
+                num_of_jesters += 1
+        self.assertEqual(num_of_jesters, 2)
+
+        # TODO: What about checking it is a shuffled deck? PS: How about no? :D
 
 
 if __name__ == "__main__":
