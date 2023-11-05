@@ -33,7 +33,7 @@ class CardName(Enum):
 class Card:
     name: CardName
     power: int
-    health: int
+    enemy_health: int
     suit: Suit
 
     def __repr__(self):
@@ -53,9 +53,9 @@ def create_castle_deck() -> List[Card]:
     kings = []
 
     for suit in suits:
-        jacks.append(Card(name=CardName.JACK, power=10, health=20, suit=suit))
-        queens.append(Card(name=CardName.QUEEN, power=15, health=30, suit=suit))
-        kings.append(Card(name=CardName.KING, power=20, health=40, suit=suit))
+        jacks.append(Card(name=CardName.JACK, power=10, enemy_health=20, suit=suit))
+        queens.append(Card(name=CardName.QUEEN, power=15, enemy_health=30, suit=suit))
+        kings.append(Card(name=CardName.KING, power=20, enemy_health=40, suit=suit))
 
     random.shuffle(jacks)
     random.shuffle(queens)
@@ -94,22 +94,24 @@ def create_tavern_deck(num_players) -> List[Card]:
                 CardName.TEN,
             ]:
                 tavern_deck.append(
-                    Card(name=name, power=name.value, health=name.value, suit=suit)
+                    Card(
+                        name=name, power=name.value, enemy_health=name.value, suit=suit
+                    )
                 )
             if name == CardName.ACE:
-                tavern_deck.append(Card(name=name, power=1, health=1, suit=suit))
+                tavern_deck.append(Card(name=name, power=1, enemy_health=1, suit=suit))
 
     # add Jesters based on the number of players
     if num_players == 3:
         tavern_deck.append(
-            Card(name=CardName.JESTER, power=0, health=0, suit=Suit.JESTER)
+            Card(name=CardName.JESTER, power=0, enemy_health=0, suit=Suit.JESTER)
         )
     elif num_players == 4:
         tavern_deck.append(
-            Card(name=CardName.JESTER, power=0, health=0, suit=Suit.JESTER)
+            Card(name=CardName.JESTER, power=0, enemy_health=0, suit=Suit.JESTER)
         )
         tavern_deck.append(
-            Card(name=CardName.JESTER, power=0, health=0, suit=Suit.JESTER)
+            Card(name=CardName.JESTER, power=0, enemy_health=0, suit=Suit.JESTER)
         )
 
     # shuffle the deck
