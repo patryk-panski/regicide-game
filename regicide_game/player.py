@@ -38,7 +38,7 @@ class Player:
 
         Strategy of discarding: from left to right (simple, refine in the future)
 
-        Returns true if the player successfully takes damage, false if the game is over!
+        Returns false if the player successfully takes damage, true if the game is over!
         """
         # check if the damage is higher than the sum of all your cards' health
         player_health = 0
@@ -47,16 +47,16 @@ class Player:
 
         # GAME OVER
         if player_health < damage:
-            return False
+            return True
         # discard all cards (the game is not over yet)
         elif player_health == damage:
             discard_pile.extends(self.hand)
             self.hand = []
-            return True
+            return False
         # pick cards to discard
         else:
             while damage > 0:
                 card_to_discard = self.hand.pop(0)
                 damage -= card_to_discard.power
                 discard_pile.append(card_to_discard)
-            return True
+            return False
