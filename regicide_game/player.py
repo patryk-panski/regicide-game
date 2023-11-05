@@ -5,7 +5,7 @@ from regicide_game.card import Card
 
 
 class Player:
-    hand: List(Card)
+    hand: List[Card]
 
     def __init__(self, max_hand_size, tavern_deck) -> None:
         """
@@ -32,7 +32,7 @@ class Player:
         self.hand.remove(card_to_discard)
         discard_pile.append(card_to_discard)
 
-    def suffer_damage(self, enemy_card, discard_pile) -> bool:
+    def suffer_damage(self, damage, discard_pile) -> bool:
         """
         Discard cards from the hand with a total value at least equal to the enemy's attack value.
 
@@ -40,13 +40,10 @@ class Player:
 
         Returns true if the player successfully takes damage, false if the game is over!
         """
-        # determine the damage that will be dealt to you by the enemy
-        damage = enemy_card.power
-
         # check if the damage is higher than the sum of all your cards' health
         player_health = 0
         for card in self.hand:
-            player_health += card.health
+            player_health += card.power
 
         # GAME OVER
         if player_health < damage:
@@ -61,5 +58,5 @@ class Player:
             while damage > 0:
                 card_to_discard = self.hand.pop(0)
                 damage -= card_to_discard.power
-                discard_pile.append(card_to_discard)
+                discard_pile.extends(card_to_discard)
             return True
